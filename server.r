@@ -3,7 +3,7 @@
 library(shiny)
 library(ggplot2)
 
-source("./example.r")
+source("./run.r")
 
 shinyServer(
     function(input, output) {

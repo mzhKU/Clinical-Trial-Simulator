@@ -1,8 +1,7 @@
 #!/usr/bin/RScript
 
 # ----------------------------------------------------
-runtrial <- function(e0=e0, ed50=ed50, emax=emax, subjects=subjects,
-                     treatDoses=treatDoses, genParMean=genParMean) {
+runtrial <- function(e0, ed50, emax, subjects,treatDoses, genParMean) {
     generateData(
         replicateN  = 1,
         subjects    = subjects,
