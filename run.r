@@ -1,10 +1,46 @@
+#!/usr/bin/RScript
+
 # ----------------------------------------------------
-# Hill equation fit.
+# Reset environment and initialize path.
+rm(list=ls())
+home_path       <- "/Users/mzhKU_work/projects/"
+engine_path     <- "MSToolkit/R/"
+simulation_path <- "trialsim/"
 # ----------------------------------------------------
+
+
 # ----------------------------------------------------
+# Load engine.
+paste(base, engine_path, sep="")
+setwd(paste(home_path, engine_path, sep=""))
+lapply(list.files(pattern = "[.][Rr]$", recursive = TRUE), source)
+
+# Return to simulation.
+setwd(paste(base_path, simulation_path, sep=""))
+
+# Required for 'mvrnorm' in 'createNmParSamples.R'.
+library(MASS)
+library(ggplot2)
+
+# Required to export 'fit' object from 'emaxCode' function to global scope.
+results <- list()
+# ----------------------------------------------------
+
+# ----------------------------------------------------
+# Execute simulation.
+# ----------------------------------------------------
+e0         <- 2
+ed50       <- 100
+emax       <- 10  
+genParMean <- c(e0, ed50, emax)
+treatDoses <- c(0, 10, 100, 10000, 20000)
+subjects   <- 5000
+
 source("./example.r")
+source("./emaxfit.R")
 results <- runtrial(e0, ed50, emax, subjects, treatDoses, genParMean)
-# ------------------------------------
+
+# ....................................
 # Dose-response equation:
 # "E0 + ((DOSE * EMAX)/(DOSE + ED50))"
 # genParMean <- c(e0, ed50, emax)

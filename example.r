@@ -1,39 +1,6 @@
 #!/usr/bin/RScript
 
 # ----------------------------------------------------
-# Resetting the environment for restart and setup.
-rm(list=ls())
-
-# Load the source.
-setwd("../MSToolkit/R/")
-lapply(list.files(pattern = "[.][Rr]$", recursive = TRUE), source)
-setwd("../../trialsim/")
-source("./emaxfit.R")
-
-# Required for 'mvrnorm' in 'createNmParSamples.R':
-library(MASS)
-library(ggplot2)
-
-# Required to export the 'fit' object
-# from 'emaxCode' function to global scope.
-results <- list()
-
-# Other:
-# library(MSToolkit)
-# demo(emaxfit,ask=F)
-# ----------------------------------------------------
-
-# ----------------------------------------------------
-# Parameters
-e0   <- 2
-ed50 <- 100
-emax <- 10
-genParMean <- c(e0, ed50, emax)
-treatDoses  = c(0, 10, 100, 10000, 20000)
-subjects    = 5000
-# ----------------------------------------------------
-
-# ----------------------------------------------------
 runtrial <- function(e0=e0, ed50=ed50, emax=emax, subjects=subjects,
                      treatDoses=treatDoses, genParMean=genParMean) {
     generateData(
