@@ -1,9 +1,8 @@
 #!/usr/bin/RScript
 
-library(shiny)
-library(ggplot2)
+source("./00_run.r")
 
-source("./run.r")
+library(ggplot2)
 
 shinyServer(
     function(input, output) {
@@ -11,23 +10,16 @@ shinyServer(
         v <- reactiveValues(data=NULL)
 
         observeEvent(input$run_simulation, {
-            v$trial <- runtrial(e0, ed50, emax, input$n_patients,
-                                treatDoses, genParMean)
+            v$patients <- runtrial(input$n_patients)
+            v$plot     <- getPlot()
         })
         
-        observeEvent(input$reset, {
-            v$trial <- NULL
+        output$plot <- renderPlot({
+            v$plot
         })
 
-        output$plot <- renderPlot({
-            r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
-            g <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) +
-                 geom_density(alpha=0.2) +
-                 theme(legend.position="bottom")
-            if(is.null(v$trial)) {
-                return()
-            }
-            print(g)
+        observeEvent(input$reset, {
+            v <- NULL
         })
     }
 )

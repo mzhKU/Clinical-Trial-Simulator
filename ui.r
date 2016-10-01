@@ -1,15 +1,15 @@
 #!/usr/bin/RScript
 
-library(shiny)
+shinyUI(fluidPage(
 
-shinyUI(
-    fluidPage(
         titlePanel("Clinical Trial Simulator"),
+
         fluidRow(
             wellPanel(
                 plotOutput("plot")
             )
         ),
+
         fluidRow(
             column(4,
                 numericInput("n_patients", "Patients", 500, step=25),
