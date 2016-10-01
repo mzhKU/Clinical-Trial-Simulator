@@ -51,13 +51,17 @@ source("./01_parameters.r")
 # - Command line: Defaults from '01_parameters.r'
 # - Shiny:        Defaults from 'ui.r'
 
+# Note, 'function'- not 'generateData'-argument list:
 # function(
 # - 'n':        Argument from shiny
 # - 'patients': Argument from parameters
-runtrial <- function(n=patients, gen_par_mean=genParMean) {
-    print("gen_par_mean")
-    print(gen_par_mean)
-    generateData(replicateN, subjects=n, treatDoses=treatDoses,
+# - <arg_shiny_server>=<arg_parameter_file>
+# The argument names 'n', 'gen_par_means', ... are defined
+# in the 'runtrial'-call in 'server.r'.
+runtrial <- function(n           =patients,
+                     gen_par_mean=genParMean,
+                     treat_doses =treatDoses) {
+    generateData(replicateN, subjects=n, treatDoses=treat_doses,
                  genParNames=genParNames, genParMean=genParMean,
                  genParVCov=genParVCov, respEqn=respEqn,
                  respVCov=respVCov, interimSubj=interimSubj
