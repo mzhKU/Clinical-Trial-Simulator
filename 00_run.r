@@ -47,13 +47,21 @@ library(ggplot2)
 
 source("./01_parameters.r")
 
-runtrial <- function(patients) {
-    generateData(replicateN, subjects=patients, treatDoses=treatDoses,
+# Parameters:
+# - Command line: Defaults from '01_parameters.r'
+# - Shiny:        Defaults from 'ui.r'
+
+# function(
+# - 'n':        Argument from shiny
+# - 'patients': Argument from parameters
+runtrial <- function(n=patients, gen_par_mean=genParMean) {
+    print("gen_par_mean")
+    print(gen_par_mean)
+    generateData(replicateN, subjects=n, treatDoses=treatDoses,
                  genParNames=genParNames, genParMean=genParMean,
                  genParVCov=genParVCov, respEqn=respEqn,
                  respVCov=respVCov, interimSubj=interimSubj
     )
-    n
 }
 
 getPlot <- function() { 
