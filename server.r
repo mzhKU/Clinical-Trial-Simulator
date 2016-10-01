@@ -24,7 +24,7 @@ shinyServer(
         })
 
         observeEvent(input$reset, {
-            v <- NULL
+            v$plot <- NULL
         })
     }
 )
