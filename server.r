@@ -1,6 +1,6 @@
 #!/usr/bin/RScript
 
-source("./00_run.r")
+source("./00_trial.r")
 
 library(ggplot2)
 
