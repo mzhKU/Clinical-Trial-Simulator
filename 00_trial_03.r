@@ -8,7 +8,7 @@
 # > source("00_run.r")
 #
 # Command line:
-# > source("./00_trial.r")
+# > source("./00_trial_03.r")
 # > runtrial()
 # 
 # To plot the response distributions:
@@ -63,11 +63,21 @@ source("./01_parameters.r")
 # in the 'runtrial'-call in 'server.r'.
 runtrial <- function(n           =patients,
                      gen_par_mean=genParMean,
-                     treat_doses =treatDoses) {
-    generateData(replicateN, subjects=n, treatDoses=treat_doses,
-                 genParNames=genParNames, genParMean=genParMean,
-                 genParVCov=genParVCov, respEqn=respEqn,
-                 respVCov=respVCov, interimSubj=interimSubj
+                     treat_doses =treatDoses,
+                     resp_v_cov  =respVCov) {
+
+print("resp_v_cov")
+print(resp_v_cov)
+                     
+    generateData(replicateN,
+                 subjects    = n,
+                 treatDoses  = treat_doses,
+                 genParNames = genParNames,
+                 genParMean  = genParMean,
+                 genParVCov  = genParVCov,
+                 respEqn     = respEqn,
+                 respVCov    = resp_v_cov,
+                 interimSubj = interimSubj
     )
 }
 # ----------------------------------------------------
@@ -82,6 +92,13 @@ getDelta <- function() {
 getSDev  <- function() {
     r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
     sdev <- sd(r[r$TRT==1, ]$RESP)
+}
+getPower <- function() {
+    r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
+    delta <- getDelta()
+    sdev  <- sd(r[r$TRT==1, ]$RESP)
+    n     <- nrow(r[r$TRT==1, ])
+    pow   <- power.t.test(n, delta, sdev)$power
 }
 # ----------------------------------------------------
 
@@ -100,13 +117,4 @@ getBoxplot <- function() {
     g <- ggplot(r, aes(as.factor(DOSE), y=RESP)) + geom_boxplot()
     g
 }
-# ----------------------------------------------------
-
-
-# ----------------------------------------------------
-# 'emaxCode' is executed as 'analysisCode' on each replicate.
-# source("./00_analysis.r")
-# analyzeData(analysisCode=emaxCode,
-#                macroCode=macroCode,
-#              interimCode=interimCode)
 # ----------------------------------------------------
