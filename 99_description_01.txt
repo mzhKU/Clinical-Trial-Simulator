@@ -6,3 +6,7 @@ Simple analysis of effects from:
 - Number of patients
 - Dosage
 - E_0, ED_50, E_max
+
+Graphics:
+- Densities
+- Boxplots
