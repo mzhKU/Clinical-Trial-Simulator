@@ -5,8 +5,11 @@ shinyUI(fluidPage(
         titlePanel("Clinical Trial Simulator"),
 
         fluidRow(
-            wellPanel(
-                plotOutput("plot")
+            column(4,
+                plotOutput("densities")
+            ),
+            column(4,
+                plotOutput("boxplot")
             )
         ),
 

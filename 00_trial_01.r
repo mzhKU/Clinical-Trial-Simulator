@@ -71,10 +71,16 @@ runtrial <- function(n           =patients,
     )
 }
 
-getPlot <- function() { 
+r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
+getDensities <- function() { 
     # Trial output.
-    r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
+    # r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
     g <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) + geom_density(alpha=0.2)
+    g
+}
+
+getBoxplot <- function() {
+    g <- ggplot(r, aes(as.factor(DOSE), y=RESP)) + geom_boxplot()
     g
 }
 # ----------------------------------------------------
