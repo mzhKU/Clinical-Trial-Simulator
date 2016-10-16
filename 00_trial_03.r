@@ -74,6 +74,19 @@ runtrial <- function(n           =patients,
 
 
 # ----------------------------------------------------
+# Statistical analysis.
+getDelta <- function() {
+    r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
+    delta <- mean(r[r$TRT==2, ]$RESP) - mean(r[r$TRT==1, ]$RESP)
+}
+getSDev  <- function() {
+    r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
+    sdev <- sd(r[r$TRT==1, ]$RESP)
+}
+# ----------------------------------------------------
+
+
+# ----------------------------------------------------
 # Visualization.
 # Data has to be reloaded for visualization because otherwise
 # new data resulting from a new simulation is not updated.

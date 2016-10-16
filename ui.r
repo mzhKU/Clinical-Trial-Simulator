@@ -4,7 +4,7 @@ shinyUI(fluidPage(
 
         titlePanel("Clinical Trial Simulator"),
 
-        h2("Power Calculation"),
+        h4("Power Calculation"),
 
         fluidRow(
             column(4,
@@ -29,6 +29,12 @@ shinyUI(fluidPage(
             column(4, 
                 actionButton("run_simulation", "Start Simulation"),
                 actionButton("reset", "Clear")
+            )
+        ),
+        fluidRow(
+            column(4, 
+                textOutput("delta"),
+                textOutput("sdev")
             )
         )
     )

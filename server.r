@@ -26,18 +26,24 @@ shinyServer(
             v$patients  <- runtrial(n, gen_par_mean, treat_doses)
             v$densities <- getDensities()
             v$boxplot   <- getBoxplot()
+
+            # Difference between treatment and placebo.
+            v$delta <- getDelta()
+            v$sdev  <- getSDev()
         })
         
-        output$densities <- renderPlot({
-            v$densities
-        })
-        output$boxplot <- renderPlot({
-            v$boxplot
-        })
+        output$densities <- renderPlot({ v$densities })
+        output$boxplot   <- renderPlot({ v$boxplot })
+        output$delta     <- renderText({ v$delta })
+        output$sdev      <- renderText({ v$sdev })
 
         observeEvent(input$reset, {
             v$densities <- NULL
             v$boxplot   <- NULL
+            v$delta     <- NULL
+            v$sdev      <- NULL
         })
+
+
     }
 )
