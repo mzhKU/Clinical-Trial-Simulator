@@ -1,6 +1,6 @@
 #!/usr/bin/RScript
 
-source("./00_trial_01.r")
+source("./00_trial_03.r")
 
 library(ggplot2)
 
@@ -21,10 +21,7 @@ shinyServer(
             # Dosing.
             d1 <- input$d1
             d2 <- input$d2
-            d3 <- input$d3
-            d4 <- input$d4
-            d5 <- input$d5
-            treat_doses <- c(d1, d2, d3, d4, d5)
+            treat_doses <- c(d1, d2)
 
             v$patients  <- runtrial(n, gen_par_mean, treat_doses)
             v$densities <- getDensities()
