@@ -1,6 +1,6 @@
 #!/usr/bin/RScript
 
-source("./00_trial.r")
+source("./00_trial_01.r")
 runtrial()
 print(getPlot())
 

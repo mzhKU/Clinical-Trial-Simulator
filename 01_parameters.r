@@ -2,12 +2,12 @@ replicateN  <- 1
 e0          <- 0
 ed50        <- 4
 emax        <- 10
-patients    <- 1000
+patients    <- 10000
 d1          <- 0
 d2          <- 4
 d3          <- 8
 d4          <- 12
-d5          <- 16
+d5          <- 100
 treatDoses  <- c(d1, d2, d3, d4, d5)
 genParNames <- "E0,ED50,EMAX"
 # genParMean  <- c(1,50,10)
