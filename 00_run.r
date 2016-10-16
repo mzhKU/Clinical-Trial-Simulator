@@ -1,6 +1,6 @@
 #!/usr/bin/RScript
 
-source("./00_trial_01.r")
+source("./00_trial_03.r")
 runtrial()
 print(getDensities())
 print(getBoxplot())
