@@ -16,16 +16,16 @@ shinyUI(fluidPage(
         ),
 
         fluidRow(
-            column(2, numericInput("n_patients", "Patients", 250, step=25)),
+            column(2, numericInput("n_patients", "Patients", 2500, step=25)),
             column(2, numericInput("e0", "Baseline", 0  , step=1)),
             column(2, numericInput("ed50", "ED_50",  0.4, step=1)),
-            column(2, numericInput("emax", "E_max",  1.0, step=1))
+            column(2, numericInput("emax", "E_max",  5.0, step=1))
         ),
         fluidRow(
             column(1, numericInput("d1", "Dose 1", 0.0,  step=1)),
-            column(1, numericInput("d2", "Dose 2", 0.9,  step=1)),
+            column(1, numericInput("d2", "Dose 2", 2.9,  step=1)),
             column(2, numericInput("respVCov", "Response Variance Covariance",
-                                                 3.5,  step=0.5))
+                                                 0.5,  step=0.5))
         ),
         fluidRow(
             column(4, 
