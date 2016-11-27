@@ -28,17 +28,23 @@ shinyServer(
             v$densities <- getDensities()
             v$boxplot   <- getBoxplot()
 
+            v$replicates <- getReplicates()
+
+            output$linklist  <- renderUI({ v$replicates })
+
             # Analysis.
-            v$delta <- getDelta()
-            v$sdev  <- getSDev()
-            v$power <- getPower()
+            # v$delta <- getDelta()
+            # v$sdev  <- getSDev()
+            # v$power <- getPower()
         })
+
         
-        output$densities <- renderPlot({ v$densities })
+        # output$densities <- renderPlot({ v$densities })
         output$boxplot   <- renderPlot({ v$boxplot   })
         output$delta     <- renderText({ v$delta     })
         output$sdev      <- renderText({ v$sdev      })
         output$power     <- renderText({ v$power     })
+
 
         observeEvent(input$reset, {
             v$densities <- NULL

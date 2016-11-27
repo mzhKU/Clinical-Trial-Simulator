@@ -83,9 +83,11 @@ runtrial <- function(n           =patients,
 
 
 # ----------------------------------------------------
+# Assemble replicate data.
+getReplicates <- function() {
+    a("Replicate 001", href=paste("./ReplicateData/replicate0001.csv"))
+}
 # ----------------------------------------------------
-
-
 
 
 # ----------------------------------------------------
