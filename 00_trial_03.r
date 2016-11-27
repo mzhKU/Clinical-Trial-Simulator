@@ -12,7 +12,8 @@
 # > runtrial()
 # 
 # To plot the response distributions:
-# > getPlot()
+# > getDensities()
+# > getBoxplot()
 #
 # Shiny (shiny library loaded in .rProfile):
 # > runApp()
