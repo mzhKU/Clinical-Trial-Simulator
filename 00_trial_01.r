@@ -4,15 +4,13 @@
 # Setup:
 # Set working directory in R shell to 'trialsim'.
 #
-# Super command, loads parameters, trial, plot, ANOVA:
-# > source("00_run.r")
-#
 # Command line:
-# > source("./00_trial.r")
+# > source("./00_trial_01.r")
 # > runtrial()
 # 
 # To plot the response distributions:
-# > getPlot()
+# > getDensities()
+# > getBoxplot()
 #
 # Shiny (shiny library loaded in .rProfile):
 # > runApp()
@@ -22,20 +20,18 @@
 # ----------------------------------------------------
 # Reset environment and initialize path.
 rm(list=ls())
-base_path       <- "/Users/mzhKU_work/projects/"
-engine_path     <- "MSToolkit/R/"
-simulation_path <- "trialsim/trial_01/"
+base_path       <- getwd()
+engine_path     <- "/engine/"
 # ----------------------------------------------------
 
 
 # ----------------------------------------------------
 # Load engine.
-paste(base_path, engine_path, sep="")
 setwd(paste(base_path, engine_path, sep=""))
 lapply(list.files(pattern = "[.][Rr]$", recursive = TRUE), source)
 
 # Return to simulation.
-setwd(paste(base_path, simulation_path, sep=""))
+setwd(base_path)
 
 # Required for 'mvrnorm' in 'createNmParSamples.R'.
 library(MASS)
