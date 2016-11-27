@@ -4,7 +4,7 @@ rm(list=ls())
 
 source("./00_trial_03.r")
 
-probes <- 2000
+probes <- 200
 simulations <- list()
 
 trialseries <- function(nprobes=probes, s=simulations) {
