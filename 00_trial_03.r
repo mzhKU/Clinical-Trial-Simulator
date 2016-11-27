@@ -22,20 +22,18 @@
 # ----------------------------------------------------
 # Reset environment and initialize path.
 rm(list=ls())
-base_path       <- "/Users/mzhKU_work/projects/"
-engine_path     <- "MSToolkit/R/"
-simulation_path <- "trialsim/trial_03/"
+base_path       <- paste(getwd(), "/", sep="")
+engine_path     <- "engine/"
 # ----------------------------------------------------
 
 
 # ----------------------------------------------------
 # Load engine.
-paste(base_path, engine_path, sep="")
 setwd(paste(base_path, engine_path, sep=""))
 lapply(list.files(pattern = "[.][Rr]$", recursive = TRUE), source)
 
 # Return to simulation.
-setwd(paste(base_path, simulation_path, sep=""))
+setwd(base_path)
 
 # Required for 'mvrnorm' in 'createNmParSamples.R'.
 library(MASS)
