@@ -1,8 +1,8 @@
-replicateN  <- 1
+replicateN  <- 10
 e0          <- 0
 ed50        <- 1.5
 emax        <- 2.0
-patients    <- 2500
+patients    <- 100
 d1          <- 0
 d2          <- 2.9
 treatDoses  <- c(d1, d2)
