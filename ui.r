@@ -4,8 +4,6 @@ shinyUI(fluidPage(
 
         titlePanel("Clinical Trial Simulator"),
 
-        h4("Power Calculation"),
-
         fluidRow(
             column(4,
                 plotOutput("densities")
@@ -32,19 +30,11 @@ shinyUI(fluidPage(
                 actionButton("run_simulation", "Start Simulation"),
                 actionButton("reset", "Clear")
             )
-        ),
-        fluidRow(
-            column(4, 
-                p(strong("Delta:")), textOutput("delta"),
-                p(strong("SDev:" )),  textOutput("sdev"),
-                p(strong("Power:")), textOutput("power")
-            )
         )
         # fluidRow(
         #     column(4, 
-        #         p(strong("Alpha:")), textOutput("alpha"),
-        #         p(strong("Beta:" )),  textOutput("beta"),
-        #         p(strong("Power:")), textOutput("power")
+        #         p(strong("Mean 1:")), textOutput("delta"),
+        #         p(strong("Mean 2:")), textOutput("sdev"),
         #     )
         # )
     )
