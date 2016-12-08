@@ -1,6 +1,6 @@
 #!/usr/bin/RScript
 
-source("./00_trial_01.r")
+source("./trial.r")
 
 library(ggplot2)
 
@@ -28,7 +28,7 @@ shinyServer(
 
             v$patients  <- runtrial(n, gen_par_mean, treat_doses)
             v$densities <- getDensities()
-            v$boxplot   <- getBoxplot()
+            v$boxplot   <- getBoxplots()
         })
         
         output$densities <- renderPlot({
