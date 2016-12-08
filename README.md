@@ -6,7 +6,7 @@ by R shell functions or through the Shiny app.
 
 To run the app:
 
-1) Start a R session and set the working directory to the directory
+1) Start an R session and set the working directory to the directory
 containing the 'trial.r' file.
 
 2) In the R session enter:
