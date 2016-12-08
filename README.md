@@ -1,7 +1,7 @@
 # Clinical-Trial-Simulator
 
 This application can be run as a Shiny app or locally.
-Data is generated and stored in "./ReplicateData/" and can be visualized
+Data is generated and stored in `./ReplicateData/` and can be visualized
 by R shell functions or through the Shiny app.
 
 To run the app:
