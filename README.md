@@ -18,8 +18,9 @@ containing the 'trial.r' file.
 4) You should find the data generated in './ReplicateData/'
 
 6) Then enter:
-   > getDistributions()
-   to get an overview on the distributions of responses depending on doses
+   > > getDistributions()
+
+to get an overview on the distributions of responses depending on doses
 
 7) Enter:
    > getBoxplots()
