@@ -1,13 +1,13 @@
 # Clinical-Trial-Simulator
 
-This application can be run as a Shiny app or locally.
+This application can be run as a Shiny app or locally in the R shell.
 Data is generated and stored in `./ReplicateData/` and can be visualized
-by R shell functions or through the Shiny app.
+by functions from the app within the shell or through the Shiny app.
 
 To run the app:
 
 1) Start an R session and set the working directory to the directory
-containing the 'trial.r' file.
+containing the `trial.r` file.
 
 2) In the R session enter:
 ```r
@@ -19,20 +19,20 @@ containing the 'trial.r' file.
 > runtrial()
 ```
 
-4) You should find the data generated in './ReplicateData/'
+4) You should find the data generated in `./ReplicateData/`
 
 6) Then enter:
 ```r
 > getDistributions()
 ```
 
-to get an overview on the distributions of responses depending on doses
+to get an overview on the distributions of responses depending on doses.
 
 7) Enter:
 ```r
 > getBoxplots()
 ```
-   to get a boxplot overview of the simulated data
+   to get a boxplot overview of the simulated data.
 
 8) Enter:
 ```r
