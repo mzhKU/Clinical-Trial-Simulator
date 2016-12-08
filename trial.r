@@ -5,7 +5,7 @@
 # Set working directory in R shell to 'trialsim'.
 #
 # Command line:
-# > source("./00_trial_01.r")
+# > source("./trial.r")
 # > runtrial()
 # 
 # To plot the response distributions:
