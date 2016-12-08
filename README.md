@@ -41,4 +41,4 @@ to get an overview on the distributions of responses depending on doses.
 ```
    to open the app in the browser.
 
-You may of course skip steps 2)-7) if you just want to use the Shiny app.
+You may of course skip steps 2) - 7) if you just want to use the Shiny app.
