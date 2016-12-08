@@ -19,7 +19,7 @@ containing the 'trial.r' file.
 
 6) Then enter:
 ```r
-getDistributions()
+> getDistributions()
 ```
 
 to get an overview on the distributions of responses depending on doses
