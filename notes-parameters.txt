@@ -1,0 +1,8 @@
+
+Required?
+source("./metaManagement.R")
+
+
+> generateData(replicateN=1, subjects=100, treatDoses=c(0, 5), genParNames="E0,ED50,EMAX", genParMean=c(0, 4, 10), genParVCov=c(0.5, 1.0, 1.0), respEqn="E0 + ((DOSE*EMAX)/(DOSE+ED50))", respVCov=2)
+
+sour

@@ -62,8 +62,7 @@
                           workingPath = workingPath)
         #removeDirectories(c("EvalMicro", "EvalMacro"), workingPath = workingPath)
     }
-    createDirectories(c("MicroEvaluation", "MacroEvaluation"),
-                      workingPath = workingPath)
+    createDirectories(c("MicroEvaluation", "MacroEvaluation"), workingPath = workingPath)
     # createDirectories(c("EvalMicro", "EvalMacro"), workingPath = workingPath)
 
     

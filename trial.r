@@ -63,10 +63,10 @@ runtrial <- function(n           =patients,
     generateData(replicateN, subjects=n, treatDoses=treat_doses,
                  genParNames=genParNames, genParMean=genParMean,
                  genParVCov=genParVCov, respEqn=respEqn,
-                 respVCov=respVCov, interimSubj=interimSubj
-    )
+                 respVCov=respVCov, interimSubj=interimSubj)
 }
 # ----------------------------------------------------
+
 
 
 # ----------------------------------------------------
@@ -84,6 +84,7 @@ getBoxplots <- function() {
     g
 }
 # ----------------------------------------------------
+
 
 
 # ----------------------------------------------------
