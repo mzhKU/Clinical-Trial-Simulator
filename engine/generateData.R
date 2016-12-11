@@ -76,11 +76,11 @@ generateData <- function(
                                   # error to the generated response:
                                   # Additive or Proportional
     respCrit,	                  # Range of acceptable values for created response
-    respDigits = 3,	              # Number of digits to which to round the
+    respDigits   = 3,	          # Number of digits to which to round the
                                   # created response
-    mcarProp = 0,	              # Proportion of observations to set to missing
+    mcarProp     = 0,	          # Proportion of observations to set to missing
                                   # at random
-    mcarRule,	                  # Rule to specify which observations of the
+    mcarRule,                     # Rule to specify which observations of the
                                   # data should be included for MCAR allocation
     dropFun ,	                  # User defined function to define criteria
                                   # for subject dropout
@@ -102,10 +102,11 @@ generateData <- function(
                                   # effects variables
     deleteCurrData = TRUE,        # Should existing data be deleted before
                                   # starting generation phase
-    covDiff = TRUE,               # Should covariates differ between replicates
-    treatDiff = TRUE,             # Should treatment allocation differ between
+    covDiff      = TRUE,          # Should covariates differ between replicates
+    treatDiff    = TRUE,          # Should treatment allocation differ between
                                   # replicates
-    workingPath = getwd()         # Working directory from which to create data
+    workingPath  = getwd(),       # Working directory from which to create data
+    write_to     = "memory"       # Write data to ["memory"|"directory"]
 ){
     ###############################################################################
     # Mango Solutions, Chippenham SN14 0SQ 2006
@@ -139,65 +140,29 @@ generateData <- function(
         if (length(Vec)) lapply(Vec, get, envir=parent.frame()) else list()
     }
     
-    # Look at the values of treatSubj and subjects.
-    # if (missing(subjects) & missing(treatSubj)) {
-    #     ectdStop("One of 'subjects' or 'treatSubj' must be supplied")
-    # }
-    
-    # if (missing(subjects)) {
-    #     subjects <- sum(treatSubj)
-    # }
-    
-    # if (length(subjects) != 1) {
-    #     ectdStop("The 'subjects' input must contain a single value")
-    # }
-    
-    # if (sum(treatSubj) != sum(subjects)) {
-    #     if (sum(treatSubj) < sum(subjects)) {
-    #         if ((sum(subjects) %% sum(treatSubj)) == 0) {
-    #             if (length(treatSubj) == 1) {
-    #                 treatSubj <- rep(treatSubj, sum(subjects) %/% sum(treatSubj))
-    #             }
-    #         } else {
-    #             msg <- paste("Values of 'subjects' and 'treatSubj'",
-    #                          "are incompatible. 'subjects' is not ",
-    #                          "divisible by sum('treatSubj')", sep=" ")
-    #             ectdStop(msg)
-    #         }
-    #     } else {
-    #         msg <- paste("Values of 'subjects' and 'treatSubj' are",
-    #                      "incompatible. The value of 'subjects' is",
-    #                      "less than sum('treatSubj')", sep=" ")
-    #         ectdStop(msg)
-    #     }
-    # }
-    #treatSubj <- subjects
-    
     # Set Argument calling lists: matching of arguments.
     treatType <- "Parallel"
     doseCol   <- getEctdColName("Dose")
-    treatSeq  <- 
-
     treatList <-       innerCallList(c(doses="treatDoses",times="treatPeriod",
                                        type="treatType",  sequence="treatSeq",
                                        doseCol="doseCol", timeCol="timeCol",
                                       trtCol="trtCol"))
-     allocateList <- innerCallList(c(subjects="treatSubj",     prop="treatProp",
+    allocateList <- innerCallList(c(subjects="treatSubj",     prop="treatProp",
                                     ordered="treatOrder",   idCol="idCol",
                                      trtCol="trtCol"))
-     	covList <-  innerCallList(c(subjects="subjects",  conNames="conCovNames",
-                                    conMean="conCovMean",  conCov="conCovVCov",
-                                   conRange="conCovCrit", conDigits="conCovDigits",
-                                conMaxDraws="conCovMaxDraws", disNames="disCovNames",
-                                  disValues="disCovVals",      disProbs="disCovProb",
+    covList <- innerCallList(c(subjects="subjects",  conNames="conCovNames",
+                               conMean="conCovMean",  conCov="conCovVCov",
+                               conRange="conCovCrit", conDigits="conCovDigits",
+                               conMaxDraws="conCovMaxDraws", disNames="disCovNames",
+                               disValues="disCovVals",      disProbs="disCovProb",
                                disProbArray="disCovProbArray", extNames="extCovNames",
-                                  extFile="extCovFile",     extSubset="extCovSubset",
+                               extFile="extCovFile",     extSubset="extCovSubset",
                                extRefCol="extCovRefCol",  extSameRow="extCovSameRow",
-                                  extDataId="extCovDataId",       idCol="idCol",
-                              workingPath="workingPath",    timeNames="timeCovNames",
-                                   timeMean="timeCovMean",      timeCov="timeCovVCov",
-                                   timeRange="timeCovCrit",      timeCol="timeCol",
-                                  timePeriod="treatPeriod"))
+                               extDataId="extCovDataId",       idCol="idCol",
+                               workingPath="workingPath",    timeNames="timeCovNames",
+                               timeMean="timeCovMean",      timeCov="timeCovVCov",
+                               timeRange="timeCovCrit",      timeCol="timeCol",
+                               timePeriod="treatPeriod"))
 	parList <- innerCallList(c(subjects="subjects", genNames="genParNames",
                            genFixedMean="genParMean", genFixedCov="genParVCov",
                               genRange="genParCrit", genBetweenNames="genParBtwNames",
@@ -224,14 +189,15 @@ generateData <- function(
                                     idCol="idCol", interimCol="interimCol",
                                    method="interimMethod"))
 
-	# Set directory structures.
-	if(deleteCurrData) {
-        removeDirectories("ReplicateData", workingPath = workingPath)
+    if(write_to=="directory") {
+	    # Set directory structures.
+	    if(deleteCurrData) {
+            removeDirectories("ReplicateData", workingPath = workingPath)
+        }
+	    createDirectories("ReplicateData", workingPath = workingPath)
     }
-	createDirectories("ReplicateData", workingPath = workingPath)
   
 	# Derive Treatment Data.
-    # print(treatList)
 	treatData <- do.call(createTreatments, treatList)
 	allocateList$trts <- max(treatData[[trtCol]])                          
 
@@ -247,12 +213,17 @@ generateData <- function(
     }
              
   	# Add buffer if we are adding to existing replicates in the directory.
-	buffer <- if (deleteCurrData) 0 
-	else {
-		allReps <- try(getReplicates(workingPath = workingPath), silent = TRUE)
-		if (class(allReps) == "try-error") buffer <- 0
-		else buffer <- max(allReps)
-	}
+    if(write_to == "directory") {
+	    buffer <- if (deleteCurrData) 0 
+	    else {
+	   	    allReps <- try(getReplicates(workingPath = workingPath), silent = TRUE)
+	        if (class(allReps) == "try-error") {
+                buffer <- 0
+            } else {
+                buffer <- max(allReps)
+            }
+	    }
+    }
   
 	# Loop around replicates.
 	if (length(replicateN) == 1) replicateN <- 1:replicateN
@@ -276,34 +247,34 @@ generateData <- function(
 	        allocData[[idCol]] <- 1:subjects
 	    }
 	 
-     if(timeCol %in% names(covData)) {
-         bycov <- c(idCol, timeCol)
-     } else {
-         bycov <- idCol
-     }
+        if(timeCol %in% names(covData)) {
+            bycov <- c(idCol, timeCol)
+        } else {
+            bycov <- idCol
+        }
 
-     coreData <- merge(merge(treatData, allocData, by=trtCol), covData, by=bycov)
-     sortBy <- c(idCol, trtCol, timeCol, doseCol)
-     sortBy <- sortBy[sortBy %in% names(coreData)]
+        coreData <- merge(merge(treatData, allocData, by=trtCol), covData, by=bycov)
+        sortBy <- c(idCol, trtCol, timeCol, doseCol)
+        sortBy <- sortBy[sortBy %in% names(coreData)]
 
-     if(length(sortBy)) {
-         coreData <- coreData[do.call("order", coreData[sortBy]), , drop=FALSE]
-     }
-	
-   	 # Replicate Looping: Parameters and Reponse.
-   	 if(!missing(extParRefColData) &&
-        length(extParRefColData) == 1 &&
-        is.character(extParRefColData) &&
-        !length(grep(",", extParRefColData))) {
-         if(!length(grep(".refCol", extParRefColData))) {
-             extParRefColData <- paste(extParRefColData, ".refCol", sep="")
-         }
-         if(extParRefColData %in% names(coreData)) {
-             parList$extRefCol <- coreData[[extParRefColData]]
-         } else {
-             parList <- parList[names(parList) != "extRefCol"]      
-         }
-   	 }
+        if(length(sortBy)) {
+            coreData <- coreData[do.call("order", coreData[sortBy]), , drop=FALSE]
+        }
+	    
+   	    # Replicate Looping: Parameters and Reponse.
+   	    if(!missing(extParRefColData) &&
+           length(extParRefColData) == 1 &&
+           is.character(extParRefColData) &&
+           !length(grep(",", extParRefColData))) {
+            if(!length(grep(".refCol", extParRefColData))) {
+                extParRefColData <- paste(extParRefColData, ".refCol", sep="")
+            }
+            if(extParRefColData %in% names(coreData)) {
+                parList$extRefCol <- coreData[[extParRefColData]]
+            } else {
+                parList <- parList[names(parList) != "extRefCol"]      
+            }
+   	    }
 
     coreData <- merge(coreData, do.call(createParameters, parList), by=idCol)
     respList$data <- coreData
@@ -314,25 +285,29 @@ generateData <- function(
     } else {
         ectdStop("Cound not create response variable")
     }
+    return(coreData)
 
-    ## Replicate Looping: Flags and Interims
-    if (mcarProp > 0) {
-      mcarList$data <- coreData
-      coreData <- do.call(createMCAR, mcarList)
-    }
-    if (!missing(dropFun)) {
-      dropList$data <- coreData
-      coreData <- do.call(createDropout, c(dropList, dropFunExtraArgs))
-    }
+    # # Replicate Looping: Flags and Interims.
+    # if (mcarProp > 0) {
+    #   mcarList$data <- coreData
+    #   coreData <- do.call(createMCAR, mcarList)
+    # }
+    # if (!missing(dropFun)) {
+    #   dropList$data <- coreData
+    #   coreData <- do.call(createDropout, c(dropList, dropFunExtraArgs))
+    # }
 
-    if (!missing(interimSubj)) {
-        coreData <- merge(coreData, do.call(createInterims, interimList), by=idCol)
-    }
+    # if (!missing(interimSubj)) {
+    #     coreData <- merge(coreData, do.call(createInterims, interimList), by=idCol)
+    # }
 
-    ## Replicate Looping: Exporting Data
-    writeData(coreData, i + buffer, dataType = "Replicate", workingPath = workingPath)
+    # # Replicate Looping: Exporting Data.
+    # if(write_to=="directory") {
+    #     writeData(coreData, i + buffer, dataType="Replicate", workingPath=workingPath)
+    # }
+    # 
 
-    .log( sprintf("gendata replicate %5d / %5d", i, length(replicateN)) )
+    # .log( sprintf("gendata replicate %5d / %5d", i, length(replicateN)) )
   }
  
   # Set new default column names

@@ -1,6 +1,16 @@
 
-Required?
+Required
 source("./metaManagement.R")
+source("./createCovariates.R")
+source("./ectdStop.R")
+source("./allocateTreatements.R")
+source("./createParameters.R")
+source("./parseCovMatrix.R")
+
+# New argument:
+'write_to="memory"' by default.
+If '"directory"', then write data to directory, this then also requires
+the 'removeDirectories' and other methods --> omit for Shiny app version.
 
 
 > generateData(replicateN=1, subjects=100, treatDoses=c(0, 5), genParNames="E0,ED50,EMAX", genParMean=c(0, 4, 10), genParVCov=c(0.5, 1.0, 1.0), respEqn="E0 + ((DOSE*EMAX)/(DOSE+ED50))", respVCov=2)

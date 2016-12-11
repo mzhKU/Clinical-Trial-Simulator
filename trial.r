@@ -57,14 +57,26 @@ source("./01_parameters.r")
 # - <arg_shiny_server>=<arg_parameter_file>
 # The argument names 'n', 'gen_par_means', ... are defined
 # in the 'runtrial'-call in 'server.r'.
-runtrial <- function(n           =patients,
-                     gen_par_mean=genParMean,
-                     treat_doses =treatDoses) {
-    generateData(replicateN, subjects=n, treatDoses=treat_doses,
-                 genParNames=genParNames, genParMean=genParMean,
-                 genParVCov=genParVCov, respEqn=respEqn,
-                 respVCov=respVCov, interimSubj=interimSubj)
-}
+# runtrial <- function(n           =patients,
+#                      gen_par_mean=genParMean,
+#                      treat_doses =treatDoses) {
+#     generateData(replicateN, subjects=n, treatDoses=treat_doses,
+#                  genParNames=genParNames, genParMean=genParMean,
+#                  genParVCov=genParVCov, respEqn=respEqn,
+#                  respVCov=respVCov, interimSubj=interimSubj)
+# }
+
+n            <- patients
+gen_par_mean <- genParMean
+treat_doses  <- treatDoses
+
+o <- generateData(replicateN, subjects=n, treatDoses=treat_doses,
+                  genParNames=genParNames, genParMean=genParMean,
+                  genParVCov=genParVCov, respEqn=respEqn,
+                  respVCov=respVCov, interimSubj=interimSubj)
+
+print("Data returned as variable 'o'")
+return(o)
 # ----------------------------------------------------
 
 
