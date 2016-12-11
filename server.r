@@ -49,6 +49,15 @@ shinyServer(
             v$densities <- getDensities(v$o)
             v$boxplot   <- getBoxplots(v$o)
         })
+
+        getDensities <- function(r=o) {
+            g <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) + geom_density(alpha=0.2)
+            g
+        }
+        getBoxplots <- function(r=o) {
+            g <- ggplot(r, aes(as.factor(DOSE), y=RESP)) + geom_boxplot()
+            g
+        }
         
         output$densities <- renderPlot({
             v$densities
