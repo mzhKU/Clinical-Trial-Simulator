@@ -14,7 +14,7 @@ shinyUI(fluidPage(
         ),
 
         fluidRow(
-            column(2, numericInput("n_patients", "Patients", 5000, step=25)),
+            column(2, numericInput("n_patients", "Patients", 50, step=25)),
             column(2, numericInput("e0", "Baseline", 0, step=2)),
             column(2, numericInput("ed50", "ED_50",  4, step=10)),
             column(2, numericInput("emax", "E_max", 10, step=1))

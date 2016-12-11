@@ -2,7 +2,7 @@ replicateN  <- 1
 e0          <- 0
 ed50        <- 4
 emax        <- 10
-patients    <- 5000
+patients    <- 50
 d1          <- 0
 d2          <- 4
 d3          <- 10
