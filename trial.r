@@ -13,6 +13,7 @@
 # > getBoxplot()
 #
 # Shiny (shiny library loaded in .rProfile):
+# library(shiny)
 # > runApp()
 # ----------------------------------------------------
 
@@ -85,13 +86,13 @@ return(o)
 # Visualization.
 # Data has to be reloaded for visualization because otherwise
 # new data resulting from a new simulation is not updated.
-getDensities <- function() { 
-    r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
+getDensities <- function(r=o) { 
+    #r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
     g <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) + geom_density(alpha=0.2)
     g
 }
-getBoxplots <- function() {
-    r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
+getBoxplots <- function(r=o) {
+    #r <- read.csv("./ReplicateData/replicate0001.csv", header=T)
     g <- ggplot(r, aes(as.factor(DOSE), y=RESP)) + geom_boxplot()
     g
 }
