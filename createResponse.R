@@ -27,35 +27,44 @@
 	set.seed(seed)
  
 	# Initial tests on variable names
-	validNames( flagName, name)
-	if( flagName == name ) ectdStop("`flagName` and `name` should be different")
+	validNames(flagName, name)
+	if(flagName==name) ectdStop("`flagName` and `name` should be different")
 	  
 	# Check digits
 	digits <- parseCharInput( digits, expected = 1, msg = "digits should be only one number" )
-  	if( digits < 0  ) ectdStop( "`digits` must be a positive integer value, is now : $digits" )
+  	if(digits < 0) ectdStop( "`digits` must be a positive integer value, is now : $digits" )
     
 	# Check distribution
-	distribution <- initialChar( distribution, "nlbp", "distribution must be either `Normal`, `LogNormal`, `Binomial` or `Poisson`")
+	distribution <- initialChar( distribution, "nlbp",
+                   "distribution must be either `Normal`, `LogNormal`, `Binomial` or `Poisson`")
 
 	# Handle the invLink  
-	if ( missing(invLink)) { 
+	if(missing(invLink)) { 
 		# Use the defaults
     	invLink <- switch( distribution,  "n" = NULL,  "l" = exp,  "b" = plogis, "p" = exp)
 	} 
 	else { 
   		# Is the function available ? 
-    	if( is.character( invLink ) ) {
-    		invLink <- try( match.fun(invLink), silent = TRUE )
-			if( class(invLink) == "try-error") ectdStop( "The `invLink` function is not available to the system" )
+    	if(is.character(invLink)) {
+    	   invLink <- try(match.fun(invLink), silent = TRUE)
+		   if(class(invLink) == "try-error") {
+               ectdStop( "The `invLink` function is not available to the system" )
+           }
 		}
     	# Does it work correctly ?
-    	testInvLink <- try( invLink( rep(1, 5) ), silent = TRUE )
-    	if( class(testInvLink) == "try-error" ) ectdStop("Errors when calling the invLink function")
-		if( length(testInvLink) != 5 ) ectdStop("The `invLink` function does not output a vector of same length as its inputs")
+    	testInvLink <- try(invLink(rep(1, 5)), silent = TRUE)
+    	if(class(testInvLink)=="try-error") {
+            ectdStop("Errors when calling the invLink function")
+        }
+		if(length(testInvLink) != 5) {
+          ectdStop("The `invLink` function does not output a vector of same length as its inputs")
+        }
 	} 
 
-	## Create the response variable using the "createResponseVariable" function
+	# Create the response variable using the "createResponseVariable" function.
 	name %<-% createResponseVariable( data, equation )
+    print("name")
+    print(name)
   
 	## Add residual Error
 	# i need to use get because the user might use the `name` in the 

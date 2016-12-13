@@ -31,6 +31,13 @@ shinyUI(fluidPage(
                 actionButton("run_simulation", "Start Simulation"),
                 actionButton("reset", "Clear")
             )
+        ),
+        fluidRow(
+            column(8,
+                verbatimTextOutput("o"),
+                verbatimTextOutput("test"),
+                verbatimTextOutput("pwd")
+            )
         )
     )
 )

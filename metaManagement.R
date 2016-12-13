@@ -133,19 +133,25 @@ setEctdColName <- function(colName, Value) {
 	invisible(getNames)
 }
 
-resetEctdColNames <- function( whichNames = names(getNames)) {
+resetEctdColNames <- function(whichNames=names(getNames)) {
     getNames <- get("colNames", envir = .ectdEnv)
+    
     if (!is.character(whichNames)) {
         ectdStop("Character vector should be provided as the 'whichNames' input")
     }
-    whichNames <- whichNames [ whichNames %in% names(getNames)]
+
+    whichNames <- whichNames[whichNames %in% names(getNames)]
+
     if (length(whichNames)) {
         for (i in whichNames) {
             getNames[[i]]$Name <- getNames[[i]]$Default 
         }
     }
+
     assign("colNames", getNames, envir = .ectdEnv)
-    invisible(getNames)
+
+    getNames
+    #invisible(getNames)
 }
 
 getEctdPossibleColNames <- function(colName) {

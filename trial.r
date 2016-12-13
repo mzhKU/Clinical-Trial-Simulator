@@ -45,27 +45,23 @@ library(ggplot2)
 # E(dose) = E0 + ((dose * Emax)/(dose + ed50))
 # ----------------------------------------------------
 
-source("./01_parameters.r")
-
-# Parameters:
-# - Command line: Defaults from '01_parameters.r'
-# - Shiny:        Defaults from 'ui.r'
-
-# Note, 'function'- not 'generateData'-argument list:
-# function(
-# - 'n':        Argument from shiny
-# - 'patients': Argument from parameters
-# - <arg_shiny_server>=<arg_parameter_file>
-# The argument names 'n', 'gen_par_means', ... are defined
-# in the 'runtrial'-call in 'server.r'.
-# runtrial <- function(n           =patients,
-#                      gen_par_mean=genParMean,
-#                      treat_doses =treatDoses) {
-#     generateData(replicateN, subjects=n, treatDoses=treat_doses,
-#                  genParNames=genParNames, genParMean=genParMean,
-#                  genParVCov=genParVCov, respEqn=respEqn,
-#                  respVCov=respVCov, interimSubj=interimSubj)
-# }
+replicateN  <- 1
+e0          <- 0
+ed50        <- 4
+emax        <- 10
+patients    <- 50
+d1          <- 0
+d2          <- 4
+d3          <- 10
+d4          <- 40
+d5          <- 80
+treatDoses  <- c(d1, d2, d3, d4, d5)
+genParNames <- "E0,ED50,EMAX"
+genParMean  <- c(e0, ed50, emax)
+genParVCov  <- c(.5, 1, 1)
+respEqn     <- "E0 + ((DOSE * EMAX)/(DOSE + ED50))"
+respVCov    <- 2
+interimSubj <- ".3, .7"
 
 n            <- patients
 gen_par_mean <- genParMean

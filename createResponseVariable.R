@@ -1,6 +1,6 @@
 "createResponseVariable" <- function( 
-	data,           #@ data frame to whoch to add the response variable
-	equation,       #@ function for creting the response variable or text character
+	data,           #@ data frame to which to add the response variable
+	equation,       #@ function for creating the response variable or text character
 	preTest = TRUE, #@ run the pre test ?
 	subsetSize = 5  #@ size used for the subset 
  ) { 
@@ -15,15 +15,28 @@
 	################################################################################
           
 	.requiredArgs(data)
-	if (!is.data.frame(data)) ectdStop("`data` must be a data frame")
-	nr <- nrow( data )
+    print("data")
+    print(data)
+    print("equation")
+    print(equation)
+
+	if(!is.data.frame(data)) ectdStop("`data` must be a data frame")
+
+	nr <- nrow(data)
 
 	eqFun <- try( match.fun( equation ), silent = TRUE )
+
+
+    # See 'utils.R'
 	eqFun <- if( class(eqFun) == "try-error") {
 		function( data ){
+            print("eval equation")
     		eval( parse( text = equation) ,data )
 		}
-	} else .checkFun( eqFun, "data")
+	} else {
+        print("Else")
+        .checkFun( eqFun, "data")
+    }
    
 	# Run a pre test to find out if the equation will run a 
 	# small subset of the data
@@ -52,6 +65,8 @@
 			"a vector of length equal to the dimension of the data ($nr)" 
 		)
 	}
+    print("out")
+    print(out)
 	out
 }
 
