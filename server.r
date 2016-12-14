@@ -55,13 +55,9 @@ shinyServer(
                                 respVCov=resp_vcov, interimSubj=interim_subj)
 
             v$densities <- getDensities(v$o)
-            # v$boxplot   <- getBoxplots(v$o)
+            #v$boxplot   <- getBoxplots(v$o)
             v$test <- "Here"
         })
-
-        # output$o <- renderText({
-        #     print(v$o$RESP)
-        # })
 
         output$pwd <- renderText({
             output <- paste(getwd(), dir())
@@ -85,13 +81,17 @@ shinyServer(
         })
 
         getDensities <- function(r=o) {
-            g <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) + geom_density(alpha=0.2)
+            g <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) +
+                 geom_density(alpha=0.2) +
+                 theme(legend.position="top", text=element_text(size=20))
             g
         }
-        getBoxplots <- function(r=o) {
-            g <- ggplot(r, aes(as.factor(DOSE), y=RESP)) + geom_boxplot()
-            g
-        }
+        # getBoxplots <- function(r=o) {
+        #     g <- ggplot(r, aes(as.factor(DOSE), y=RESP)) +
+        #          geom_boxplot() +
+        #          theme(legend.position="top", text=element_text(size=20))
+        #     g
+        # }
 
     }
 )
