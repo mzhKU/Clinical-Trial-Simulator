@@ -1,5 +1,6 @@
 library(ggplot2)
 
+
 shinyServer(
     function(input, output) {
 
@@ -83,7 +84,14 @@ shinyServer(
         getDensities <- function(r=o) {
             g <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) +
                  geom_density(alpha=0.2) +
-                 theme(legend.position="top", text=element_text(size=20))
+                 labs(title="Hill-Equation Dose-Response Model",
+                      x="RESPONSE", y="DENSITY") + 
+                 theme(plot.title=element_text(size=rel(2)),
+                       axis.text=element_text(size=rel(1.5)),
+                       axis.title=element_text(size=rel(1.5)),
+                       legend.position="top", legend.text=element_text(size=rel(2)),
+                       legend.title=element_text(size=rel(2))) +
+                 guides(fill=guide_legend(title="DOSE:"))
             g
         }
         # getBoxplots <- function(r=o) {
@@ -92,6 +100,5 @@ shinyServer(
         #          theme(legend.position="top", text=element_text(size=20))
         #     g
         # }
-
     }
 )
