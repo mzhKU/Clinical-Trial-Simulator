@@ -11,4 +11,5 @@
 - Sidebar with list of trials
   -> highlight/select to display distribution
 - patentum.ch site/products
+- Select number of dosages
 
