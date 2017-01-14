@@ -1,5 +1,6 @@
 library(ggplot2)
 
+# Source scripts outside of 'shinyServer'.
 source("./utils.R")
 source("./generateData.R")
 source("./metaManagement.R")
@@ -23,15 +24,20 @@ source("./createResponse.R")
 source("./createResponseVariable.R")
 source("./addResidualError.R")
 
+source("./empty_plot.R")
+
 # 'shinyServer' is executed by Shiny the first time when 'runApp' is called.
 # Then shinyServer gives the unnamed 'function' to Shiny.
 shinyServer(
 
+    # -----------------------------------------------------------------
+    # [USER_SPECIFIC_OBJECTS] are defined in the unnamed function but
+    # outside of 'render*'-calls.
+    # -----------------------------------------------------------------
     # 'function' is the first argument to 'shinyServer', saved until
     # a new user arrives. This function is run everytime a user visits
     # the app -> builds a distinct set of reactive values for each user.
     function(input, output) {
-
 
         v <- reactiveValues(data=NULL)
 
@@ -63,7 +69,6 @@ shinyServer(
 
             v$densities <- getDensities(v$o)
             #v$boxplot   <- getBoxplots(v$o)
-            v$test <- "Here"
         })
 
         # Reactive endpoints, re-run every time the user changes a widget.
@@ -77,15 +82,21 @@ shinyServer(
         })
         
         output$densities <- renderPlot({
-            v$densities
+            # At startup of the app, the value of the action button is zero.
+            if(input$run_simulation==0) {
+                empty_plot
+            # For every click of the action button, the value is increments by one.
+            } else {
+                v$densities
+            }
         })
         output$boxplot <- renderPlot({
             v$boxplot
         })
 
         observeEvent(input$reset, {
-            v$densities <- NULL
-            v$boxplot   <- NULL
+            v$densities <- empty_plot
+            # v$boxplot   <- NULL
         })
 
         getDensities <- function(r=o) {
@@ -108,16 +119,5 @@ shinyServer(
         #     g
         # }
 
-        # empty_plot <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) +
-        #      geom_density(alpha=0.2) +
-        #      labs(title="Hill-Equation Dose-Response Model",
-        #           x="RESPONSE", y="DENSITY") + 
-        #      theme(plot.title=element_text(size=rel(2)),
-        #            axis.text=element_text(size=rel(1.5)),
-        #            axis.title=element_text(size=rel(1.5)),
-        #            legend.position="top", legend.text=element_text(size=rel(2)),
-        #            legend.title=element_text(size=rel(2))) +
-        #      guides(fill=guide_legend(title="DOSE:"))
-        # empty_plot
     }
 )

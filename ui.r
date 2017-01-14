@@ -3,6 +3,10 @@
 shinyUI(fluidPage(
     headerPanel("Clinical Trial Simulator"), 
             fluidRow(
+                column(3, actionButton("run_simulation", "Start Simulation")),
+                column(3, actionButton("reset", "Clear"))
+            ),
+            fluidRow(
                 column(12, plotOutput("densities"))
             ),
             fluidRow(
@@ -17,12 +21,12 @@ shinyUI(fluidPage(
                 column(3, numericInput("d3", "Dose 3", 10, step=20)),
                 column(3, numericInput("d4", "Dose 4", 40, step=10))
             ),
-            fluidRow(
-                column(3, actionButton("run_simulation", "Start Simulation"))
-            ),
-            fluidRow(
-                column(3, actionButton("reset", "Clear"))
-            ),
+            # fluidRow(
+            #     column(3, actionButton("run_simulation", "Start Simulation"))
+            # ),
+            # fluidRow(
+            #     column(3, actionButton("reset", "Clear"))
+            # ),
             br(),
             p("Developed by M. Hediger")
             # column(1, numericInput("d5", "Dose 5", 80, step=10)),

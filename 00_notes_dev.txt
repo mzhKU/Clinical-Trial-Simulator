@@ -1,5 +1,6 @@
 # To do short term:
 - Clean up code
+- Check user input (0 < Patients < MAX_VALUE)
 - Dashboard
 - Interactive plot
 - Empty plot at startup
@@ -14,4 +15,7 @@
 - patentum.ch site/products
 - Select number of dosages
 
-df
+# Deploy from command line:
+library(rsconnect)
+> rsconnect::deployApp()
+[Select CRAN mirror Switzerland `42']
