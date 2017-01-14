@@ -1,5 +1,27 @@
 library(ggplot2)
 
+source("./utils.R")
+source("./generateData.R")
+source("./metaManagement.R")
+source("./createTreatments.R")
+source("./initialChar.R")
+source("./operators.R")
+source("./parseCharInput.R")
+source("./validNames.R")
+source("./createCovariates.R")
+source("./allocateTreatments.R")
+source("./createParameters.R")
+source("./ectdStop.R")
+source("./createNormalParameters.R")
+source("./parseCovMatrix.R")
+source("./checkSymmetricPDMatrix.R")
+
+# Added separately.
+source("./mvrnorm.R")
+
+source("./createResponse.R")
+source("./createResponseVariable.R")
+source("./addResidualError.R")
 
 # 'shinyServer' is executed by Shiny the first time when 'runApp' is called.
 # Then shinyServer gives the unnamed 'function' to Shiny.
@@ -10,28 +32,6 @@ shinyServer(
     # the app -> builds a distinct set of reactive values for each user.
     function(input, output) {
 
-        source("./utils.R")
-        source("./generateData.R")
-        source("./metaManagement.R")
-        source("./createTreatments.R")
-        source("./initialChar.R")
-        source("./operators.R")
-        source("./parseCharInput.R")
-        source("./validNames.R")
-        source("./createCovariates.R")
-        source("./allocateTreatments.R")
-        source("./createParameters.R")
-        source("./ectdStop.R")
-        source("./createNormalParameters.R")
-        source("./parseCovMatrix.R")
-        source("./checkSymmetricPDMatrix.R")
-
-        # Added separately.
-        source("./mvrnorm.R")
-
-        source("./createResponse.R")
-        source("./createResponseVariable.R")
-        source("./addResidualError.R")
 
         v <- reactiveValues(data=NULL)
 
