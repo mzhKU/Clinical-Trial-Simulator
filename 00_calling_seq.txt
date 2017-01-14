@@ -1,0 +1,24 @@
+generateData():
+    resetEctdColNames()
+    defNames <- 
+    callNames <-
+    treatType <-
+    doseCol <- 
+    treatList <-
+    allocateList <-
+    covList <-
+    parList <-
+    respList <-
+    mcarList <-
+    dropList <-
+    interimList <-
+
+    treatData <- createTreatments(treatList)
+
+        createTreatments(treatList):
+            type    <-
+            doseCol <-
+            timeCol <-
+            trtCol  <-
+            times   <-
+            nTimes  <-

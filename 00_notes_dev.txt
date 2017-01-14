@@ -1,0 +1,17 @@
+# To do short term:
+- Clean up code
+- Dashboard
+- Interactive plot
+- Empty plot at startup
+- Add link to github
+- Clean up server.r
+  -> Source code in "engine/" directory
+
+# To do mid term:
+- Multiple trials
+- Sidebar with list of trials
+  -> highlight/select to display distribution
+- patentum.ch site/products
+- Select number of dosages
+
+df

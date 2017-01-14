@@ -18,25 +18,51 @@
 # ----------------------------------------------------
 
 
+# # ----------------------------------------------------
+# # Reset environment and initialize path.
+# rm(list=ls())
+# base_path       <- getwd()
+# engine_path     <- "/engine/"
+# # ----------------------------------------------------
+
 # ----------------------------------------------------
-# Reset environment and initialize path.
-rm(list=ls())
-base_path       <- getwd()
-engine_path     <- "/engine/"
+# Load directly.
+source("./utils.R")
+source("./generateData.R")
+source("./metaManagement.R")
+source("./createTreatments.R")
+source("./initialChar.R")
+source("./operators.R")
+source("./parseCharInput.R")
+source("./validNames.R")
+source("./createCovariates.R")
+source("./allocateTreatments.R")
+source("./createParameters.R")
+source("./ectdStop.R")
+source("./createNormalParameters.R")
+source("./parseCovMatrix.R")
+source("./checkSymmetricPDMatrix.R")
+
+# Added separately.
+source("./mvrnorm.R")
+
+source("./createResponse.R")
+source("./createResponseVariable.R")
+source("./addResidualError.R")
 # ----------------------------------------------------
 
 
 # ----------------------------------------------------
 # Load engine.
-setwd(paste(base_path, engine_path, sep=""))
-lapply(list.files(pattern = "[.][Rr]$", recursive = TRUE), source)
-
-# Return to simulation.
-setwd(base_path)
-
-# Required for 'mvrnorm' in 'createNmParSamples.R'.
-# library(MASS)
-library(ggplot2)
+# setwd(paste(base_path, engine_path, sep=""))
+# lapply(list.files(pattern = "[.][Rr]$", recursive = TRUE), source)
+# 
+# # Return to simulation.
+# setwd(base_path)
+# 
+# # Required for 'mvrnorm' in 'createNmParSamples.R'.
+# # library(MASS)
+# library(ggplot2)
 # ----------------------------------------------------
 
 

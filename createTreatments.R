@@ -1,6 +1,6 @@
 createTreatments <- function( 
     doses,                  #@ Treatment doses
-    times = NULL,           #@ Treatment time points
+    times = NULL,           #@ Treatment time points (= "treatPeriod")
     type = "Parallel",      #@ Treatment type: Parallel  or Crossover
     sequence,               #@ Treatment matrix for crossover designs
     doseCol = getEctdColName("Dose"),       #@ Dose variable name
@@ -18,7 +18,7 @@ createTreatments <- function(
     ###############################################################################
     
     # Derive the treatment type
-    type <- initialChar( type, "pc", "'type' should be Parallel or Crossover" )      
+    type <- initialChar(type, "pc", "'type' should be Parallel or Crossover" )      
     if(!missing(sequence) ) {
         type <- "c"
     } else if( !missing(doses) ) {
@@ -45,48 +45,53 @@ createTreatments <- function(
     timeCol <- parseCharInput(timeCol, convertToNumeric=FALSE, valid=TRUE, expected=1)
     trtCol  <- parseCharInput(trtCol,  convertToNumeric=FALSE, valid=TRUE, expected=1)
     
-    times <- parseCharInput( times )
+    times <- parseCharInput(times)
     nTimes <- length(times)
     
-    if( type == "p" ){ # then make the sequence matrix
-    	doses <- parseCharInput( doses )
-    	if( is.null(times) ) {
-    		sequence <- matrix( doses, nrow = 1)
-    	} else { 
-    		sequence <- matrix( doses, nrow = length(times), 
-    				ncol = length(doses), byrow = TRUE )
-    		sequence[ times < 0, ] <- 0
-    	}
+    # Then make the sequence matrix.
+    if(type=="p"){ 
+        doses <- parseCharInput( doses )
+        if(is.null(times)) {
+            sequence <- matrix( doses, nrow = 1)
+            print("sequence")
+            print(sequence)
+        } else { 
+            sequence <- matrix( doses, nrow = length(times), 
+            ncol = length(doses), byrow = TRUE )
+            sequence[ times < 0, ] <- 0
+            print("sequence")
+            print(sequence)
+        }
     }
     
-    if( type == "c"){ 
-    	
-    	# does it have the right number of rows
-    	if( nTimes != nrow(sequence)  ) {
+    if(type == "c"){ 
+    	# Does it have the right number of rows.
+    	if(nTimes != nrow(sequence)) {
     		diffSeq <- nTimes - nrow(sequence)
-    		if (diffSeq > 0 && all(times[1:diffSeq] <= 0)) sequence <- rbind( matrix(0, nrow=diffSeq , ncol = ncol(sequence)), sequence)
-    		else {
-    			ectdStop( 
-    					"difference between the number of rows in the sequence matrix" %.n%
-    							"and the number of time points\n" )
+    		if(diffSeq > 0 && all(times[1:diffSeq] <= 0)) {
+                sequence <- rbind(matrix(0, nrow=diffSeq, ncol=ncol(sequence)), sequence)
+            } else {
+    		    ectdStop("Difference between the number of rows in the sequence matrix" %.n%
+                         "and the number of time points\n" )
     		}
     	}
     	
-    	# no dose run-in period           
-    	if( any(runinTimes <- times < 0) && any( sequence[which(runinTimes),] != 0 ) )
-    		ectdStop( "The sequence matrix suggests a dose run-in period" ) 
+    	# No dose run-in period.
+    	if(any(runinTimes <- times < 0) && any(sequence[which(runinTimes),] != 0))
+    		ectdStop("The sequence matrix suggests a dose run-in period") 
     	
     }
+
     # From this point, everything has been checked, everything should 
     # be alright to build the treatment data.
-    
     nTreat <- ncol(sequence)
     out <- .eval( 
-        if(type =="p" && is.null(times)) {  
-                    "data.frame( $trtCol=1:nTreat, $doseCol=as.vector(sequence)  ) "
-    				} else {
-                    "data.frame($trtCol=rep(1:nTreat, each=nTimes), $timeCol = rep( times, nTreat), $doseCol = as.vector(sequence)  ) "
-    } )
+        if(type=="p" && is.null(times)) {  
+            "data.frame($trtCol=1:nTreat, $doseCol=as.vector(sequence))"
+        } else {
+            "data.frame($trtCol=rep(1:nTreat, each=nTimes),
+                        $timeCol=rep(times, nTreat), $doseCol=as.vector(sequence))"
+    })
     out
 }   
 

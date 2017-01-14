@@ -1,32 +1,32 @@
-###############################################################################
+# ----------------------------------------------------------
 # Mango Solutions, Chippenham SN14 0SQ 2006
 # utils.R Fri Jun 01 10:57:12 BST 2007 @456 /Internet Time/
 #
 # Author: Romain
-###############################################################################
+# ----------------------------------------------------------
 # DESCRIPTION: set of utility functions, not exported
 # KEYWORDS: component:helper 
-###############################################################################
+# ----------------------------------------------------------
 
-.roundIt <- function( data, digits ){
-    if(!missing(digits)){   
-        digits <- parseCharInput( digits, convertToNumeric = TRUE )
-        nCov <- ncol( data )
+.roundIt <- function(data, digits){
+    if(!missing(digits)) {
+        digits <- parseCharInput(digits, convertToNumeric=TRUE)
+        nCov   <- ncol(data)
         if(any(digits < 0 )) {
             ectdStop("`digits` should be a positive vector")
         }
         len.di <- length(digits)
-        if( len.di == 1 ) {
+        if(len.di == 1) {
             data <- round( data, digits = digits)
-        } else if( len.di == nCov ) {
-                for( i in 1:nCov){
-                    data[,i] <- round( data[,i], digits = digits[i] )
-                }
+        } else if(len.di == nCov) {
+            for(i in 1:nCov) {
+                data[,i] <- round(data[,i], digits = digits[i])
+            }
         } else {
               ectdStop("`digits should be of length one or $nCov, not ${len.di}`")
-            }
+        }
     }
-data
+    data
 }
 
 .nonCumulativeFromCumulative <- function( proportion ){
@@ -55,21 +55,30 @@ data
       
 
 .strinterp <- function(txt){
-  myrx <- "\\$(\\{(.*?)\\}|[\\.]?[a-zA-Z][\\.0-9a-zA-Z]*)"
-  
-  gx  <- gregexpr( myrx , txt, perl = TRUE)[[1]]
-  va  <- substring( txt, gx + 1, gx + attr(gx, "match.length")-1) %-~% "[\\{\\}]"
-  spl <- strsplit( txt, myrx , perl = TRUE )[[1]]
-  if(length(va) == 1 && va == "") return(txt)
-  if(length(va) == length(spl)) spl <- c(spl, "")
+    myrx <- "\\$(\\{(.*?)\\}|[\\.]?[a-zA-Z][\\.0-9a-zA-Z]*)"
+    
+    gx  <- gregexpr(myrx, txt, perl=TRUE)[[1]]
+    print("gx")
+    print(gx)
 
-  out <- spl[1]
-  for( i in seq( along = va )) {
-    varName <- try( get(va[i], pos = parent.frame(2) )[1] ,silent = TRUE )
-    if( class(varName) == "try-error") varName <- va[i]
-    out <- out %.% varName  %.% spl[i+1]
-  }
-  out
+    va  <- substring(txt, gx + 1, gx + attr(gx, "match.length")-1) %-~% "[\\{\\}]"
+    print("va")
+    print(va)
+
+    spl <- strsplit(txt, myrx , perl=TRUE)[[1]]
+    print("spl")
+    print(spl)
+   
+    if(length(va) == 1 && va == "") return(txt)
+    if(length(va) == length(spl)) spl <- c(spl, "")
+    
+    out <- spl[1]
+    for(i in seq(along=va)) {
+      varName <- try(get(va[i], pos=parent.frame(2))[1] ,silent=TRUE)
+      if( class(varName) == "try-error") varName <- va[i]
+      out <- out %.% varName  %.% spl[i+1]
+    }
+    out
 }
 
 .requiredArgs <- function(arg, msg){

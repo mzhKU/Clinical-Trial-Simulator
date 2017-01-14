@@ -1,7 +1,13 @@
 library(ggplot2)
 
 
+# 'shinyServer' is executed by Shiny the first time when 'runApp' is called.
+# Then shinyServer gives the unnamed 'function' to Shiny.
 shinyServer(
+
+    # 'function' is the first argument to 'shinyServer', saved until
+    # a new user arrives. This function is run everytime a user visits
+    # the app -> builds a distinct set of reactive values for each user.
     function(input, output) {
 
         source("./utils.R")
@@ -31,7 +37,7 @@ shinyServer(
 
         observeEvent(input$run_simulation, {
 
-            # Trial setup.
+            # Reactive sources.
             n    <- input$n_patients
             e0   <- input$e0
             ed50 <- input$ed50
@@ -60,6 +66,7 @@ shinyServer(
             v$test <- "Here"
         })
 
+        # Reactive endpoints, re-run every time the user changes a widget.
         output$pwd <- renderText({
             output <- paste(getwd(), dir())
             print(output)
@@ -100,5 +107,17 @@ shinyServer(
         #          theme(legend.position="top", text=element_text(size=20))
         #     g
         # }
+
+        empty_plot <- ggplot(r, aes(RESP, fill=as.factor(DOSE))) +
+             geom_density(alpha=0.2) +
+             labs(title="Hill-Equation Dose-Response Model",
+                  x="RESPONSE", y="DENSITY") + 
+             theme(plot.title=element_text(size=rel(2)),
+                   axis.text=element_text(size=rel(1.5)),
+                   axis.title=element_text(size=rel(1.5)),
+                   legend.position="top", legend.text=element_text(size=rel(2)),
+                   legend.title=element_text(size=rel(2))) +
+             guides(fill=guide_legend(title="DOSE:"))
+        empty_plot
     }
 )
