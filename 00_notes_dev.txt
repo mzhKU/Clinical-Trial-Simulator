@@ -18,3 +18,9 @@
 library(rsconnect)
 > rsconnect::deployApp()
 [Select CRAN mirror Switzerland `42']
+
+# Merge development branch with master
+git checkout master
+git pull origin master
+git merge test
+git push origin master
