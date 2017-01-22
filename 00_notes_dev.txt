@@ -3,7 +3,6 @@
 - Check user input (0 < Patients < MAX_VALUE)
 - Dashboard
 - Interactive plot
-- Empty plot at startup
 - Add link to github
 - Clean up server.r
   -> Source code in "engine/" directory
